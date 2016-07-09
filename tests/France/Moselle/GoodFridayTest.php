@@ -10,25 +10,27 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\France;
+namespace Yasumi\tests\France\Moselle;
 
 use DateTime;
 use DateTimeZone;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
- * Class containing tests for Good Friday in France.
+ * Class containing tests for Good Friday in Moselle (France).
  */
-class goodFridayTest extends FranceBaseTestCase
+class GoodFridayTest extends MoselleBaseTestCase implements YasumiTestCaseInterface
 {
     /**
-     * The name of the holiday
+     * The name of the holiday to be tested
      */
     const HOLIDAY = 'goodFriday';
 
     /**
-     * Tests Good Friday.
+     * Tests the holiday defined in this test.
      */
-    public function testGoodFriday()
+    public function testHoliday()
     {
         $year = 2008;
         $this->assertHoliday(self::REGION, self::HOLIDAY, $year,
@@ -36,11 +38,19 @@ class goodFridayTest extends FranceBaseTestCase
     }
 
     /**
-     * Tests translated name of Good Friday.
+     * Tests the translated name of the holiday defined in this test.
      */
     public function testTranslation()
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
-            ['fr_FR' => 'Vendredi saint']);
+            [self::LOCALE => 'Vendredi saint']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

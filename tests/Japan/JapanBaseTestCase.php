@@ -10,10 +10,10 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Japan;
+namespace Yasumi\tests\Japan;
 
 use PHPUnit_Framework_TestCase;
-use Yasumi\Tests\YasumiBase;
+use Yasumi\tests\YasumiBase;
 
 /**
  * Class JapanBaseTestCase.
@@ -36,4 +36,9 @@ abstract class JapanBaseTestCase extends PHPUnit_Framework_TestCase
      * Prefix for short name used when holiday is substituted
      */
     const SUBSTITUTE_PREFIX = 'substituteHoliday:';
+
+    /**
+     * Locale that is considered common for this provider
+     */
+    const LOCALE = 'ja_JP';
 }

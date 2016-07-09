@@ -10,15 +10,17 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Spain\CanaryIslands;
+namespace Yasumi\tests\Spain\CanaryIslands;
 
 use DateTime;
 use DateTimeZone;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
  * Class for testing Canary Islands Day in the Canary Islands (Spain).
  */
-class CanaryIslandsDayTest extends CanaryIslandsBaseTestCase
+class CanaryIslandsDayTest extends CanaryIslandsBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday to be tested
@@ -55,6 +57,15 @@ class CanaryIslandsDayTest extends CanaryIslandsBaseTestCase
     public function testTranslation()
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY,
-            $this->generateRandomYear(self::ESTABLISHMENT_YEAR), ['es_ES' => 'Día de las Canarias']);
+            $this->generateRandomYear(self::ESTABLISHMENT_YEAR), [self::LOCALE => 'Día de las Canarias']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
+            Holiday::TYPE_NATIONAL);
     }
 }

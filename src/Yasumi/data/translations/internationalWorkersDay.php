@@ -12,15 +12,20 @@
 
 // Translation for International Workers' Day
 return [
+    'cs_CZ' => 'Svátek práce',
+    'de_DE' => 'Tag der Arbeit',
+    'el_GR' => 'Εργατική Πρωτομαγιά',
     'en_US' => 'International Workers\' Day',
-    'nl_NL' => 'Dag van de arbeid',
-    'nl_BE' => 'Dag van de arbeid',
-    'ja_JP' => '労働の日',
-    'it_IT' => 'Festa del Lavoro',
-    'fr_FR' => 'Fête du Travail',
     'es_ES' => 'Día del Trabajador',
-    'nb_NO' => 'Arbeidernes dag',
-    'sv_SE' => 'Första maj',
     'fi_FI' => 'Vappu',
-    'de_DE' => 'Tag der Arbeit'
+    'fr_FR' => 'Fête du Travail',
+    'hr_HR' => 'Praznik rada',
+    'it_IT' => 'Festa del Lavoro',
+    'ja_JP' => '労働の日',
+    'nb_NO' => 'Arbeidernes dag',
+    'nl_BE' => 'Dag van de arbeid',
+    'nl_NL' => 'Dag van de arbeid',
+    'pl_PL' => 'Święto Pracy',
+    'pt_BR' => 'Dia internacional do trabalhador',
+    'sv_SE' => 'Första maj',
 ];

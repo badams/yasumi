@@ -7,8 +7,9 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider;
 
 use DateTime;
@@ -21,6 +22,12 @@ use Yasumi\Holiday;
 class Belgium extends AbstractProvider
 {
     use CommonHolidays, ChristianHolidays;
+
+    /**
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'BE';
 
     /**
      * Initialize holidays for Belgium.
@@ -50,9 +57,11 @@ class Belgium extends AbstractProvider
          * Belgian National Day is the National Day of Belgium celebrated on 21 July each year.
          */
         $this->addHoliday(new Holiday('nationalDay', [
+            'fr_FR' => 'Fête nationale',
+            'fr_BE' => 'Fête nationale',
             'en_US' => 'Belgian National Day',
             'nl_NL' => 'Nationale feestdag',
-            'nl_BE' => 'Nationale feestdag'
+            'nl_BE' => 'Nationale feestdag',
         ], new DateTime("$this->year-7-21", new DateTimeZone($this->timezone)), $this->locale));
     }
 }

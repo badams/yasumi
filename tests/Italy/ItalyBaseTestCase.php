@@ -10,10 +10,10 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Italy;
+namespace Yasumi\tests\Italy;
 
 use PHPUnit_Framework_TestCase;
-use Yasumi\Tests\YasumiBase;
+use Yasumi\tests\YasumiBase;
 
 /**
  * Base class for test cases of the Italy holiday provider.
@@ -31,4 +31,9 @@ abstract class ItalyBaseTestCase extends PHPUnit_Framework_TestCase
      * Timezone in which this provider has holidays defined
      */
     const TIMEZONE = 'Europe/Rome';
+
+    /**
+     * Locale that is considered common for this provider
+     */
+    const LOCALE = 'it_IT';
 }

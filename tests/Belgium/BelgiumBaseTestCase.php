@@ -10,13 +10,13 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Belgium;
+namespace Yasumi\tests\Belgium;
 
 use PHPUnit_Framework_TestCase;
-use Yasumi\Tests\YasumiBase;
+use Yasumi\tests\YasumiBase;
 
 /**
- * Class BelgiumBaseTestCase.
+ * Base class for test cases of the Belgium holiday provider.
  */
 abstract class BelgiumBaseTestCase extends PHPUnit_Framework_TestCase
 {
@@ -31,4 +31,9 @@ abstract class BelgiumBaseTestCase extends PHPUnit_Framework_TestCase
      * Timezone in which this provider has holidays defined
      */
     const TIMEZONE = 'Europe/Brussels';
+
+    /**
+     * Locale that is considered common for this provider
+     */
+    const LOCALE = 'nl_BE';
 }

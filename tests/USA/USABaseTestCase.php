@@ -10,10 +10,10 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\USA;
+namespace Yasumi\tests\USA;
 
 use PHPUnit_Framework_TestCase;
-use Yasumi\Tests\YasumiBase;
+use Yasumi\tests\YasumiBase;
 
 /**
  * Class USABaseTestCase.
@@ -31,4 +31,9 @@ abstract class USABaseTestCase extends PHPUnit_Framework_TestCase
      * Timezone in which this provider has holidays defined
      */
     const TIMEZONE = 'America/New_York';
+
+    /**
+     * Locale that is considered common for this provider
+     */
+    const LOCALE = 'en_US';
 }

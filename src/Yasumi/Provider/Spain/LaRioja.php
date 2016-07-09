@@ -7,8 +7,9 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider\Spain;
 
 use DateTime;
@@ -25,11 +26,16 @@ use Yasumi\Provider\Spain;
  * la Calzada, and Nájera. It has an estimated population of 322,415 inhabitants.
  *
  * @link http://en.wikipedia.org/wiki/La_Rioja_(Spain)
- *
  */
 class LaRioja extends Spain
 {
     use ChristianHolidays;
+
+    /**
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'ES-RI';
 
     /**
      * Initialize holidays for La Rioja (Spain).

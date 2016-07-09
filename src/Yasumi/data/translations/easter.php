@@ -10,14 +10,19 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-// Translation for Easter
+// Translation for Easter Sunday
 return [
-    'en_US' => 'Easter Sunday',
-    'nl_NL' => 'Eerste Paasdag',
-    'nl_BE' => 'Eerste Paasdag',
-    'it_IT' => 'Pasqua',
+    'cy_GB' => 'Sul y Pasg',
     'da_DK' => 'Påskedag',
+    'el_GR' => 'Κυριακή του Πάσχα',
+    'en_US' => 'Easter Sunday',
+    'fi_FI' => 'Pääsiäispäivä',
+    'hr_HR' => 'Uskrs',
+    'it_IT' => 'Pasqua',
     'nb_NO' => 'Første påskedag',
+    'nl_BE' => 'Eerste Paasdag',
+    'nl_NL' => 'Eerste Paasdag',
+    'pl_PL' => 'Wielkanoc',
+    'pt_BR' => 'Páscoa',
     'sv_SE' => 'påskdagen',
-    'fi_FI' => 'Pääsiäispäivä'
 ];

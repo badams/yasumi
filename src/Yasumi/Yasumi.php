@@ -7,25 +7,25 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi;
 
-use DirectoryIterator;
 use InvalidArgumentException;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use RuntimeException;
 use Yasumi\Exception\UnknownLocaleException;
 use Yasumi\Provider\AbstractProvider;
 
 /**
- * Class Yasumi
- *
- * @package Yasumi
+ * Class Yasumi.
  */
 class Yasumi
 {
     /**
-     * Default locale
+     * Default locale.
      */
     const DEFAULT_LOCALE = 'en_US';
 
@@ -35,11 +35,22 @@ class Yasumi
     private static $locales;
 
     /**
-     * Global translations
+     * Global translations.
      *
      * @var Translations
      */
     private static $globalTranslations;
+
+    /**
+     * Provider class to be ignored (Abstract, trait, other)
+     *
+     * @var array
+     */
+    private static $ignoredProvider = [
+        'AbstractProvider.php',
+        'CommonHolidays.php',
+        'ChristianHolidays.php',
+    ];
 
     /**
      * Create a new holiday provider instance.
@@ -49,9 +60,9 @@ class Yasumi
      *                       between 1000 and 9999.
      * @param string $locale The locale to use. If empty we'll use the default locale (en_US)
      *
-     * @throws RuntimeException If no such holiday provider is found
+     * @throws RuntimeException         If no such holiday provider is found
      * @throws InvalidArgumentException if the year parameter is not between 1000 and 9999
-     * @throws UnknownLocaleException if the locale parameter is invalid
+     * @throws UnknownLocaleException   if the locale parameter is invalid
      * @throws InvalidArgumentException if the holiday provider for the given country does not exist
      *
      * @return AbstractProvider An instance of class $class is created and returned
@@ -60,7 +71,7 @@ class Yasumi
     {
         // Find and return holiday provider instance
         $providerClass = sprintf('Yasumi\Provider\%s', str_replace('/', '\\', $class));
-        if ( ! class_exists($providerClass)) {
+        if (! class_exists($providerClass) || $class === 'AbstractProvider') {
             throw new InvalidArgumentException(sprintf('Unable to find holiday provider "%s".', $class));
         }
 
@@ -70,18 +81,18 @@ class Yasumi
         }
 
         // Load internal locales variable
-        if ( ! isset(static::$locales)) {
+        if (! isset(static::$locales)) {
             static::$locales = self::getAvailableLocales();
         }
 
         // Load internal translations variable
-        if ( ! isset(static::$globalTranslations)) {
+        if (! isset(static::$globalTranslations)) {
             static::$globalTranslations = new Translations(static::$locales);
             static::$globalTranslations->loadTranslations(__DIR__ . '/data/translations');
         }
 
         // Assert locale input
-        if ( ! in_array($locale, static::$locales)) {
+        if (! in_array($locale, static::$locales)) {
             throw new UnknownLocaleException(sprintf('Locale "%s" is not a valid locale.', $locale));
         }
 
@@ -105,21 +116,36 @@ class Yasumi
      */
     public static function getProviders()
     {
-        $extension = 'php';
-        $providers = [];
-        foreach (new DirectoryIterator(__DIR__ . '/Provider/') as $file) {
-            if ($file->isFile() === false || in_array($file->getBasename(), [
-                    'AbstractProvider.php',
-                    'CommonHolidays.php',
-                    'ChristianHolidays.php'
-                ]) || $file->getExtension() !== $extension
+        // Basic static cache
+        static $providers;
+        if ($providers !== null) {
+            return $providers;
+        }
+
+        $ds = DIRECTORY_SEPARATOR;
+
+        $providers     = [];
+        $filesIterator = new \RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . $ds . 'Provider',
+            \FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+
+        foreach ($filesIterator as $file) {
+            if ($file->isDir() || in_array($file->getBasename('.php'),
+                    self::$ignoredProvider) || $file->getExtension() !== 'php'
             ) {
                 continue;
             }
 
-            $providers[] = $file->getBasename('.' . $extension);
+            $quotedDs = preg_quote($ds);
+            $provider = preg_replace("#^.+{$quotedDs}Provider{$quotedDs}(.+)\\.php$#", '$1', $file->getPathName());
+
+            $class = new \ReflectionClass(sprintf('Yasumi\Provider\%s', str_replace('/', '\\', $provider)));
+
+            $key = 'ID';
+            if ($class->hasConstant($key)) {
+                $providers[strtoupper($class->getConstant($key))] = $provider;
+            }
         }
 
-        return (array) $providers;
+        return (array)$providers;
     }
 }

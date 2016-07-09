@@ -10,14 +10,16 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Sweden;
+namespace Yasumi\tests\Sweden;
 
-use DateTime;
+use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\Yasumi;
+use Yasumi\Holiday;
 
 /**
  * Class for testing St. John's Day / Midsummer's Day in Sweden.
  */
-class stJohnsDayTest extends SwedenBaseTestCase
+class stJohnsDayTest extends SwedenBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday to be tested
@@ -26,25 +28,25 @@ class stJohnsDayTest extends SwedenBaseTestCase
 
     /**
      * Tests the holiday defined in this test.
-     *
-     * @dataProvider HolidayDataProvider
-     *
-     * @param int      $year     the year for which the holiday defined in this test needs to be tested
-     * @param DateTime $expected the expected date
      */
-    public function testHoliday($year, $expected)
+    public function testHoliday()
     {
-        $this->assertHoliday(self::REGION, self::HOLIDAY, $year, $expected);
-    }
+        $year = $this->generateRandomYear();
 
-    /**
-     * Returns a list of random test dates used for assertion of the holiday defined in this test
-     *
-     * @return array list of test dates for the holiday defined in this test
-     */
-    public function HolidayDataProvider()
-    {
-        return $this->generateRandomDates(6, 24, self::TIMEZONE);
+        $holidays = Yasumi::create(self::REGION, $year);
+        $holiday  = $holidays->getHoliday(self::HOLIDAY);
+
+        // Some basic assertions
+        $this->assertInstanceOf('Yasumi\Provider\\' . str_replace('/', '\\', self::REGION), $holidays);
+        $this->assertInstanceOf('Yasumi\Holiday', $holiday);
+        $this->assertTrue(isset($holiday));
+
+        // Holiday specific assertions
+        $this->assertEquals('Saturday', $holiday->format('l'));
+        $this->assertGreaterThanOrEqual(20, $holiday->format('j'));
+        $this->assertLessThanOrEqual(26, $holiday->format('j'));
+
+        unset($holiday, $holidays);
     }
 
     /**
@@ -54,5 +56,13 @@ class stJohnsDayTest extends SwedenBaseTestCase
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
             [self::LOCALE => 'midsommardagen']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

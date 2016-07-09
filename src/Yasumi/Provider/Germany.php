@@ -8,8 +8,9 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider;
 
 use DateTime;
@@ -24,6 +25,12 @@ class Germany extends AbstractProvider
     use CommonHolidays, ChristianHolidays;
 
     /**
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'DE';
+
+    /**
      * Initialize holidays for Germany.
      */
     public function initialize()
@@ -36,20 +43,26 @@ class Germany extends AbstractProvider
         // Add common Christian holidays (common in Germany)
         $this->addHoliday($this->ascensionDay($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->christmasDay($this->year, $this->timezone, $this->locale));
+        $this->addHoliday($this->easter($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->easterMonday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->goodFriday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->internationalWorkersDay($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->newYearsDay($this->year, $this->timezone, $this->locale));
+        $this->addHoliday($this->pentecost($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->pentecostMonday($this->year, $this->timezone, $this->locale));
         $this->addHoliday($this->secondChristmasDay($this->year, $this->timezone, $this->locale));
 
         // Calculate other holidays
         $this->calculateGermanUnityDay();
-        $this->calculateReformationDay();
+
+        // Note: all German states have agreed this to be a nationwide holiday in 2017 to celebrate the 500th anniversary.
+        if ($this->year == 2017) {
+            $this->calculateReformationDay();
+        }
     }
 
     /**
-     * German Unity Day
+     * German Unity Day.
      *
      * The Day of German Unity (German: Tag der Deutschen Einheit) is the national day of Germany, celebrated on
      * 3 October as a public holiday. It commemorates the anniversary of German reunification in 1990, when the
@@ -85,10 +98,8 @@ class Germany extends AbstractProvider
      */
     public function calculateReformationDay()
     {
-        if ($this->year == 2017) {
-            $this->addHoliday(new Holiday('reformationDay', [
+        $this->addHoliday(new Holiday('reformationDay', [
                 'de_DE' => 'Reformationstag',
             ], new DateTime("$this->year-10-31", new DateTimeZone($this->timezone)), $this->locale));
-        }
     }
 }

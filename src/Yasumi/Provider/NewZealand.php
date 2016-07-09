@@ -9,11 +9,12 @@
  *
  * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider;
 
+use DateInterval;
 use DateTime;
 use DateTimeZone;
-use DateInterval;
 use Yasumi\Holiday;
 
 /**
@@ -22,6 +23,12 @@ use Yasumi\Holiday;
 class NewZealand extends AbstractProvider
 {
     use CommonHolidays, ChristianHolidays;
+
+    /**
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'NZ';
 
     /**
      * Initialize holidays for New Zealand.
@@ -44,66 +51,7 @@ class NewZealand extends AbstractProvider
     }
 
     /**
-     * Waitangi Day
-     *
-     * Waitangi Day (named after Waitangi, where the Treaty of Waitangi was first signed)
-     * commemorates a significant day in the history of New Zealand. It is observed as a public holiday each
-     * year on 6 February to celebrate the signing of the Treaty of Waitangi, New Zealand's founding document,
-     * on that date in 1840. In recent legislation, if 6 February falls on a Saturday or Sunday,
-     * the Monday that immediately follows becomes a public holiday.
-     *
-     * @link https://en.wikipedia.org/wiki/Waitangi_Day
-     * @link http://employment.govt.nz/er/holidaysandleave/publicholidays/mondayisation.asp
-     */
-    public function calculateWaitangiDay()
-    {
-        if ($this->year < 1974) {
-            return;
-        }
-
-        $date = new DateTime("$this->year-02-6", new DateTimeZone($this->timezone));
-
-        if ($this->year >= 2015 && !$this->isWorkingDay($date)) {
-            $date->modify('next monday');
-        }
-
-        $this->addHoliday(new Holiday('waitangiDay', [], $date, $this->locale));
-    }
-
-    /**
-     * Christmas Day / Boxing Day
-     *
-     * Christmas day, and Boxing day are public holidays in New Zealand,
-     * they are subject to mondayisation rules.
-     *
-     * @link http://www.timeanddate.com/holidays/new-zealand/boxing-day
-     * @link http://www.timeanddate.com/holidays/new-zealand/christmas-day
-     * @link http://employment.govt.nz/er/holidaysandleave/publicholidays/mondayisation.asp
-     */
-    public function calculateChristmasHolidays()
-    {
-        $christmasDay = new DateTime("$this->year-12-25", new DateTimeZone($this->timezone));
-        $boxingDay = new DateTime("$this->year-12-26", new DateTimeZone($this->timezone));
-
-        switch ($christmasDay->format('w')) {
-            case 0:
-                $christmasDay->add(new DateInterval('P2D'));
-                break;
-            case 5:
-                $boxingDay->add(new DateInterval('P2D'));
-                break;
-            case 6:
-                $christmasDay->add(new DateInterval('P2D'));
-                $boxingDay->add(new DateInterval('P2D'));
-                break;
-        }
-
-        $this->addHoliday(new Holiday('christmasDay', [], $christmasDay, $this->locale));
-        $this->addHoliday(new Holiday('secondChristmasDay', [], $boxingDay, $this->locale));
-    }
-
-    /**
-     * Holidays associated with the start of the modern Gregorian calendar
+     * Holidays associated with the start of the modern Gregorian calendar.
      *
      * New Zealanders celebrate New Years Day and The Day After New Years Day,
      * if either of these holidays occur on a weekend, the dates need to be adjusted.
@@ -115,9 +63,9 @@ class NewZealand extends AbstractProvider
      */
     public function calculateNewYearHolidays()
     {
-        $newYearsDay = new DateTime("$this->year-01-01", new DateTimeZone($this->timezone));
+        $newYearsDay         = new DateTime("$this->year-01-01", new DateTimeZone($this->timezone));
         $dayAfterNewYearsDay = new DateTime("$this->year-01-02", new DateTimeZone($this->timezone));
-        
+
         switch ($newYearsDay->format('w')) {
             case 0:
                 $newYearsDay->add(new DateInterval('P1D'));
@@ -137,7 +85,34 @@ class NewZealand extends AbstractProvider
     }
 
     /**
-     * ANZAC Day
+     * Waitangi Day.
+     *
+     * Waitangi Day (named after Waitangi, where the Treaty of Waitangi was first signed)
+     * commemorates a significant day in the history of New Zealand. It is observed as a public holiday each
+     * year on 6 February to celebrate the signing of the Treaty of Waitangi, New Zealand's founding document,
+     * on that date in 1840. In recent legislation, if 6 February falls on a Saturday or Sunday,
+     * the Monday that immediately follows becomes a public holiday.
+     *
+     * @link https://en.wikipedia.org/wiki/Waitangi_Day
+     * @link http://employment.govt.nz/er/holidaysandleave/publicholidays/mondayisation.asp
+     */
+    public function calculateWaitangiDay()
+    {
+        if ($this->year < 1974) {
+            return;
+        }
+
+        $date = new DateTime("$this->year-02-6", new DateTimeZone($this->timezone));
+
+        if ($this->year >= 2015 && ! $this->isWorkingDay($date)) {
+            $date->modify('next monday');
+        }
+
+        $this->addHoliday(new Holiday('waitangiDay', [], $date, $this->locale));
+    }
+
+    /**
+     * ANZAC Day.
      *
      * Anzac Day is a national day of remembrance in Australia and New Zealand that broadly commemorates all Australians
      * and New Zealanders "who served and died in all wars, conflicts, and peacekeeping operations"
@@ -154,16 +129,15 @@ class NewZealand extends AbstractProvider
 
         $date = new DateTime("$this->year-04-25", new DateTimeZone($this->timezone));
 
-        if ($this->year >= 2015 && !$this->isWorkingDay($date)) {
+        if ($this->year >= 2015 && ! $this->isWorkingDay($date)) {
             $date->modify('next monday');
         }
 
         $this->addHoliday(new Holiday('anzacDay', [], $date, $this->locale));
-
     }
 
     /**
-     * Queens Birthday
+     * Queens Birthday.
      *
      * The official head of state of New Zealand is the Monarch of the Commonwealth Realms.
      * The monarch's birthday is officially celebrated in many parts of New Zealand.
@@ -181,12 +155,8 @@ class NewZealand extends AbstractProvider
             return;
         }
 
-        $this->addHoliday(new Holiday(
-            'queensBirthday',
-            [],
-            new DateTime("first monday of june $this->year", new DateTimeZone($this->timezone)),
-            $this->locale
-        ));
+        $this->addHoliday(new Holiday('queensBirthday', ['en_NZ' => 'Queens Birthday'],
+            new DateTime("first monday of june $this->year", new DateTimeZone($this->timezone)), $this->locale));
     }
 
     /**
@@ -209,11 +179,41 @@ class NewZealand extends AbstractProvider
             return;
         }
 
-        $date = new DateTime(
-            (($this->year < 1910) ? 'second wednesday of october' : 'fourth monday of october') . " $this->year",
-            new DateTimeZone($this->timezone)
-        );
+        $date = new DateTime((($this->year < 1910) ? 'second wednesday of october' : 'fourth monday of october') . " $this->year",
+            new DateTimeZone($this->timezone));
 
         $this->addHoliday(new Holiday('labourDay', [], $date, $this->locale));
+    }
+
+    /**
+     * Christmas Day / Boxing Day.
+     *
+     * Christmas day, and Boxing day are public holidays in New Zealand,
+     * they are subject to mondayisation rules.
+     *
+     * @link http://www.timeanddate.com/holidays/new-zealand/boxing-day
+     * @link http://www.timeanddate.com/holidays/new-zealand/christmas-day
+     * @link http://employment.govt.nz/er/holidaysandleave/publicholidays/mondayisation.asp
+     */
+    public function calculateChristmasHolidays()
+    {
+        $christmasDay = new DateTime("$this->year-12-25", new DateTimeZone($this->timezone));
+        $boxingDay    = new DateTime("$this->year-12-26", new DateTimeZone($this->timezone));
+
+        switch ($christmasDay->format('w')) {
+            case 0:
+                $christmasDay->add(new DateInterval('P2D'));
+                break;
+            case 5:
+                $boxingDay->add(new DateInterval('P2D'));
+                break;
+            case 6:
+                $christmasDay->add(new DateInterval('P2D'));
+                $boxingDay->add(new DateInterval('P2D'));
+                break;
+        }
+
+        $this->addHoliday(new Holiday('christmasDay', [], $christmasDay, $this->locale));
+        $this->addHoliday(new Holiday('secondChristmasDay', [], $boxingDay, $this->locale));
     }
 }

@@ -12,7 +12,10 @@
 
 // Translation for Corpus Christi
 return [
+    'de_DE' => 'Fronleichnam',
     'en_US' => 'Corpus Christi',
     'es_ES' => 'Corpus Christi',
-    'de_DE' => 'Fronleichnam'
+    'hr_HR' => 'Tijelovo',
+    'pl_PL' => 'Boże Ciało',
+    'pt_BR' => 'Corpus Christi',
 ];

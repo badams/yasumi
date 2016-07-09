@@ -10,14 +10,16 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\France;
+namespace Yasumi\tests\Croatia;
 
 use DateTime;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
- * Class for testing St. Stephen's Day in France.
+ * Class for testing St. Stephen's Day in Croatia.
  */
-class stStephensDayTest extends FranceBaseTestCase
+class StStephensDayTest extends CroatiaBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday
@@ -38,15 +40,6 @@ class stStephensDayTest extends FranceBaseTestCase
     }
 
     /**
-     * Tests translated name of St. Stephen's Day.
-     */
-    public function testTranslation()
-    {
-        $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
-            ['fr_FR' => 'Saint-Étienne']);
-    }
-
-    /**
      * Returns a list of random test dates used for assertion of St. Stephen's Day.
      *
      * @return array list of test dates for St. Stephen's Day
@@ -54,5 +47,22 @@ class stStephensDayTest extends FranceBaseTestCase
     public function stStephensDayDataProvider()
     {
         return $this->generateRandomDates(12, 26, self::TIMEZONE);
+    }
+
+    /**
+     * Tests translated name of St. Stephen's Day.
+     */
+    public function testTranslation()
+    {
+        $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
+            [self::LOCALE => 'Sveti Stjepan']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

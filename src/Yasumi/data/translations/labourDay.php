@@ -12,8 +12,9 @@
 
 // Translation for Labour Day
 return [
+    'en_NZ' => 'Labour Day',
     'en_US' => 'Labour Day',
-    'nl_NL' => 'Dag van de arbeid',
-    'nl_BE' => 'Dag van de arbeid',
     'ja_JP' => '労働の日',
+    'nl_BE' => 'Dag van de arbeid',
+    'nl_NL' => 'Dag van de arbeid',
 ];

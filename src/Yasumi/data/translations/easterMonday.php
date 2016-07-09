@@ -12,15 +12,22 @@
 
 // Translation for Easter Monday
 return [
-    'en_US' => 'Easter Monday',
-    'nl_NL' => 'Tweede Paasdag',
-    'nl_BE' => 'Paasmaandag',
-    'it_IT' => 'Lunedi` dell\'Angelo',
-    'fr_FR' => 'Lundi de Pâques',
-    'es_ES' => 'Lunes de Pascua',
+    'cs_CZ' => 'Velikonoční pondělí',
+    'cy_GB' => 'Llun y Pasg',
     'da_DK' => '2. Påskedag',
-    'nb_NO' => 'Andre påskedag',
-    'sv_SE' => 'annandag påsk',
+    'de_DE' => 'Ostermontag',
+    'el_GR' => 'Δευτέρα του Πάσχα',
+    'en_GB' => 'Easter Monday',
+    'en_NZ' => 'Easter Monday',
+    'en_US' => 'Easter Monday',
+    'es_ES' => 'Lunes de Pascua',
     'fi_FI' => '2. pääsiäispäivä',
-    'de_DE' => 'Ostermontag'
+    'fr_FR' => 'Lundi de Pâques',
+    'hr_HR' => 'Uskršnji ponedjeljak',
+    'it_IT' => 'Lunedi` dell\'Angelo',
+    'nb_NO' => 'Andre påskedag',
+    'nl_BE' => 'Paasmaandag',
+    'nl_NL' => 'Tweede Paasdag',
+    'pl_PL' => 'Poniedziałek Wielkanocny',
+    'sv_SE' => 'annandag påsk',
 ];

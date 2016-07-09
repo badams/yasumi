@@ -10,7 +10,7 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Spain\CanaryIslands;
+namespace Yasumi\tests\Spain\CanaryIslands;
 
 use Yasumi\Holiday;
 
@@ -84,6 +84,6 @@ class CanaryIslandsTest extends CanaryIslandsBaseTestCase
      */
     protected function setUp()
     {
-        $this->year = $this->generateRandomYear(1981);
+        $this->year = $this->generateRandomYear(1984);
     }
 }

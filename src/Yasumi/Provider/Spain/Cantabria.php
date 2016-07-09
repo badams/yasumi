@@ -7,8 +7,9 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider\Spain;
 
 use DateTime;
@@ -26,11 +27,16 @@ use Yasumi\Provider\Spain;
  * Cantabrian Sea (Bay of Biscay).
  *
  * @link http://en.wikipedia.org/wiki/Cantabria
- *
  */
 class Cantabria extends Spain
 {
     use ChristianHolidays;
+
+    /**
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'ES-CB';
 
     /**
      * Initialize holidays for Cantabria (Spain).

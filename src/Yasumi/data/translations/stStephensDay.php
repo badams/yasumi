@@ -12,7 +12,10 @@
 
 // Translation for St. Stephen's Day
 return [
-    'it_IT' => 'Santo Stefano',
+    'cy_GB' => 'Gŵyl San Steffan',
+    'en_US' => 'St. Stephen\'s Day',
+    'es_ES' => 'Sant Esteve',
     'fr_FR' => 'Saint-Étienne',
-    'es_ES' => 'Sant Esteve'
+    'hr_HR' => 'Sveti Stjepan',
+    'it_IT' => 'Santo Stefano',
 ];

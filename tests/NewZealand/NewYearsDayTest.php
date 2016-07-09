@@ -7,18 +7,21 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- * @author Sacha Telgenhof <stelgenhof@gmail.com>
+ *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\NewZealand;
+namespace Yasumi\tests\NewZealand;
 
+use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
  * Class for testing New Years Day in the New Zealand.
  */
-class NewYearsDayTest extends NewZealandBaseTestCase
+class NewYearsDayTest extends NewZealandBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday
@@ -30,7 +33,7 @@ class NewYearsDayTest extends NewZealandBaseTestCase
      *
      * @dataProvider HolidayDataProvider
      *
-     * @param int $year the year for which the holiday defined in this test needs to be tested
+     * @param int    $year     the year for which the holiday defined in this test needs to be tested
      * @param string $expected the expected date
      */
     public function testHoliday($year, $expected)
@@ -46,57 +49,41 @@ class NewYearsDayTest extends NewZealandBaseTestCase
      */
     public function HolidayDataProvider()
     {
-        return [
-            [2647, '2647-01-01'],
-            [1923, '1923-01-01'],
-            [2950, '2950-01-01'],
-            [2984, '2984-01-01'],
-            [2361, '2361-01-02'],
-            [1863, '1863-01-01'],
-            [1969, '1969-01-01'],
-            [2602, '2602-01-01'],
-            [2991, '2991-01-03'],
-            [2607, '2607-01-01'],
-            [2959, '2959-01-01'],
-            [1891, '1891-01-01'],
-            [2805, '2805-01-03'],
-            [1966, '1966-01-03'],
-            [1983, '1983-01-03'],
-            [2721, '2721-01-03'],
-            [2142, '2142-01-01'],
-            [2736, '2736-01-01'],
-            [2772, '2772-01-03'],
-            [2862, '2862-01-02'],
-            [2479, '2479-01-02'],
-            [2372, '2372-01-03'],
-            [1931, '1931-01-01'],
-            [1835, '1835-01-01'],
-            [2405, '2405-01-03'],
-            [2090, '2090-01-02'],
-            [2124, '2124-01-03'],
-            [1825, '1825-01-03'],
-            [2226, '2226-01-02'],
-            [2326, '2326-01-01'],
-            [1939, '1939-01-02'],
-            [1987, '1987-01-01'],
-            [2818, '2818-01-01'],
-            [2923, '2923-01-01'],
-            [2337, '2337-01-01'],
-            [1973, '1973-01-01'],
-            [1908, '1908-01-01'],
-            [2178, '2178-01-01'],
-            [2356, '2356-01-02'],
-            [2013, '2013-01-01'],
-            [1880, '1880-01-01'],
-            [2515, '2515-01-01'],
-            [2939, '2939-01-01'],
-            [2574, '2574-01-03'],
-            [2431, '2431-01-01'],
-            [2754, '2754-01-01'],
-            [2784, '2784-01-02'],
-            [2682, '2682-01-02'],
-            [2524, '2524-01-03'],
-            [2003, '2003-01-01'],
-        ];
+        $data = [];
+
+        for ($y = 0; $y < 50; $y++) {
+            $year = $this->generateRandomYear();
+            $date = new DateTime("$year-01-01", new DateTimeZone(self::TIMEZONE));
+
+            switch ($date->format('w')) {
+                case 0:
+                    $date->add(new DateInterval('P1D'));
+                    break;
+                case 6:
+                    $date->add(new DateInterval('P2D'));
+                    break;
+            }
+
+            $data[] = [$year, $date->format('Y-m-d')];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Tests the translated name of the holiday defined in this test.
+     */
+    public function testTranslation()
+    {
+        $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
+            [self::LOCALE => 'New Year\'s Day']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

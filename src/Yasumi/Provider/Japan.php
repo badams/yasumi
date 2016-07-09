@@ -8,8 +8,9 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider;
 
 use DateInterval;
@@ -25,42 +26,48 @@ class Japan extends AbstractProvider
     use CommonHolidays;
 
     /**
-     * The gradient parameter of the approximate expression to calculate equinox day
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'JP';
+
+    /**
+     * The gradient parameter of the approximate expression to calculate equinox day.
      */
     const EQUINOX_GRADIENT = 0.242194;
 
     /**
-     * The initial parameter of the approximate expression to calculate vernal equinox day from 1900 to 1979
+     * The initial parameter of the approximate expression to calculate vernal equinox day from 1900 to 1979.
      */
     const VERNAL_EQUINOX_PARAM_1979 = 20.8357;
 
     /**
-     * The initial parameter of the approximate expression to calculate vernal equinox day from 1980 to 2099
+     * The initial parameter of the approximate expression to calculate vernal equinox day from 1980 to 2099.
      */
     const VERNAL_EQUINOX_PARAM_2099 = 20.8431;
 
     /**
-     * The initial parameter of the approximate expression to calculate vernal equinox day from 2100 to 2150
+     * The initial parameter of the approximate expression to calculate vernal equinox day from 2100 to 2150.
      */
     const VERNAL_EQUINOX_PARAM_2150 = 21.8510;
 
     /**
-     * The initial parameter of the approximate expression to calculate autumnal equinox day from 1851 to 1899
+     * The initial parameter of the approximate expression to calculate autumnal equinox day from 1851 to 1899.
      */
     const AUTUMNAL_EQUINOX_PARAM_1899 = 22.2588;
 
     /**
-     * The initial parameter of the approximate expression to calculate autumnal equinox day from 1900 to 1979
+     * The initial parameter of the approximate expression to calculate autumnal equinox day from 1900 to 1979.
      */
     const AUTUMNAL_EQUINOX_PARAM_1979 = 23.2588;
 
     /**
-     * The initial parameter of the approximate expression to calculate autumnal equinox day from 1980 to 2099
+     * The initial parameter of the approximate expression to calculate autumnal equinox day from 1980 to 2099.
      */
     const AUTUMNAL_EQUINOX_PARAM_2099 = 23.2488;
 
     /**
-     * The initial parameter of the approximate expression to calculate autumnal equinox day from 2100 to 2150
+     * The initial parameter of the approximate expression to calculate autumnal equinox day from 2100 to 2150.
      */
     const AUTUMNAL_EQUINOX_PARAM_2150 = 24.2488;
 
@@ -78,7 +85,7 @@ class Japan extends AbstractProvider
             $this->addHoliday($this->newYearsDay($this->year, $this->timezone, $this->locale));
         }
 
-        /**
+        /*
          * National Foundation Day. National Foundation Day is held on February 11th and established since 1966.
          */
         if ($this->year >= 1966) {
@@ -87,7 +94,7 @@ class Japan extends AbstractProvider
             $this->addHoliday($holiday);
         }
 
-        /**
+        /*
          * Showa Day. Showa Day is held on April 29th and established since 2007.
          */
         if ($this->year >= 2007) {
@@ -95,7 +102,7 @@ class Japan extends AbstractProvider
                 new DateTime("$this->year-4-29", new DateTimeZone($this->timezone)), $this->locale));
         }
 
-        /**
+        /*
          * Constitution Memorial Day. Constitution Memorial Day is held on May 3rd and established since 1948.
          */
         if ($this->year >= 1948) {
@@ -104,7 +111,7 @@ class Japan extends AbstractProvider
                 new DateTime("$this->year-5-3", new DateTimeZone($this->timezone)), $this->locale));
         }
 
-        /**
+        /*
          * Children's Day. Children's Day is held on May 5th and established since 1948.
          */
         if ($this->year >= 1948) {
@@ -112,7 +119,7 @@ class Japan extends AbstractProvider
                 new DateTime("$this->year-5-5", new DateTimeZone($this->timezone)), $this->locale));
         }
 
-        /**
+        /*
          * Mountain Day. Mountain Day is held on August 11th and established since 2016.
          */
         if ($this->year >= 2016) {
@@ -120,7 +127,7 @@ class Japan extends AbstractProvider
                 new DateTime("$this->year-8-11", new DateTimeZone($this->timezone)), $this->locale));
         }
 
-        /**
+        /*
          * Culture Day. Culture Day is held on November 11th and established since 1948.
          */
         if ($this->year >= 1948) {
@@ -128,7 +135,7 @@ class Japan extends AbstractProvider
                 new DateTime("$this->year-11-3", new DateTimeZone($this->timezone)), $this->locale));
         }
 
-        /**
+        /*
          * Labor Thanksgiving Day. Labor Thanksgiving Day is held on November 23rd and established since 1948.
          */
         if ($this->year >= 1948) {
@@ -137,7 +144,7 @@ class Japan extends AbstractProvider
                 new DateTime("$this->year-11-23", new DateTimeZone($this->timezone)), $this->locale));
         }
 
-        /**
+        /*
          * Emperors Birthday. The Emperors Birthday is on December 23rd and celebrated as such since 1989.
          * Prior to the death of Emperor Hirohito in 1989, this holiday was celebrated on April 29. See also "Shōwa Day".
          */
@@ -181,7 +188,7 @@ class Japan extends AbstractProvider
             $day = null;
         }
 
-        if ( ! is_null($day)) {
+        if (! is_null($day)) {
             $this->addHoliday(new Holiday('vernalEquinoxDay', ['en_US' => 'Vernal Equinox Day', 'ja_JP' => '春分の日'],
                 new DateTime("$this->year-3-$day", new DateTimeZone($this->timezone)), $this->locale));
         }
@@ -201,7 +208,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1948) {
             $date = new DateTime("$this->year-1-15", new DateTimeZone($this->timezone));
         }
-        if ( ! is_null($date)) {
+        if (! is_null($date)) {
             $this->addHoliday(new Holiday('comingOfAgeDay', ['en_US' => 'Coming of Age Day', 'ja_JP' => '成人の日'], $date,
                 $this->locale));
         }
@@ -220,7 +227,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1989) {
             $date = new DateTime("$this->year-4-29", new DateTimeZone($this->timezone));
         }
-        if ( ! is_null($date)) {
+        if (! is_null($date)) {
             $this->addHoliday(new Holiday('greeneryDay', ['en_US' => 'Greenery Day', 'ja_JP' => '緑の日'], $date,
                 $this->locale));
         }
@@ -239,7 +246,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1996) {
             $date = new DateTime("$this->year-7-20", new DateTimeZone($this->timezone));
         }
-        if ( ! is_null($date)) {
+        if (! is_null($date)) {
             $this->addHoliday(new Holiday('marineDay', ['en_US' => 'Marine Day', 'ja_JP' => '海の日'], $date,
                 $this->locale));
         }
@@ -259,9 +266,9 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1996) {
             $date = new DateTime("$this->year-9-15", new DateTimeZone($this->timezone));
         }
-        if ( ! is_null($date)) {
+        if (! is_null($date)) {
             $this->addHoliday(new Holiday('respectfortheAgedDay',
-                ['en_US' => 'Respect for the Age Day', 'ja_JP' => '敬老の日'], $date, $this->locale));
+                ['en_US' => 'Respect for the Aged Day', 'ja_JP' => '敬老の日'], $date, $this->locale));
         }
     }
 
@@ -279,7 +286,7 @@ class Japan extends AbstractProvider
         } elseif ($this->year >= 1996) {
             $date = new DateTime("$this->year-10-10", new DateTimeZone($this->timezone));
         }
-        if ( ! is_null($date)) {
+        if (! is_null($date)) {
             $this->addHoliday(new Holiday('healthandSportsDay', ['en_US' => 'Health And Sports Day', 'ja_JP' => '体育の日'],
                 $date, $this->locale));
         }
@@ -309,7 +316,7 @@ class Japan extends AbstractProvider
             $day = null;
         }
 
-        if ( ! is_null($day)) {
+        if (! is_null($day)) {
             $this->addHoliday(new Holiday('autumnalEquinoxDay', ['en_US' => 'Autumnal Equinox Day', 'ja_JP' => '秋分の日'],
                 new DateTime("$this->year-9-$day", new DateTimeZone($this->timezone)), $this->locale));
         }
@@ -348,10 +355,10 @@ class Japan extends AbstractProvider
                 }
 
                 // Add a new holiday that is substituting the original holiday
-                if ( ! is_null($substituteDay)) {
+                if (! is_null($substituteDay)) {
                     $substituteHoliday = new Holiday('substituteHoliday:' . $shortName, [
                         'en_US' => $date->translations['en_US'] . ' Observed',
-                        'ja_JP' => '振替休日 (' . $date->translations['ja_JP'] . ')'
+                        'ja_JP' => '振替休日 (' . $date->translations['ja_JP'] . ')',
                     ], $substituteDay, $this->locale);
 
                     $this->addHoliday($substituteHoliday);
@@ -387,7 +394,7 @@ class Japan extends AbstractProvider
 
                 $this->addHoliday(new Holiday('bridgeDay', [
                     'en_US' => 'Bridge Public holiday',
-                    'ja_JP' => '国民の休日'
+                    'ja_JP' => '国民の休日',
                 ], $bridgeDate, $this->locale));
             }
         }

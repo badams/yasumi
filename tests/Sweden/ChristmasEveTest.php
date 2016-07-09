@@ -10,14 +10,16 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Sweden;
+namespace Yasumi\tests\Sweden;
 
 use DateTime;
+use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\Holiday;
 
 /**
  * Class for testing Christmas Eve in Sweden.
  */
-class ChristmasEveTest extends SwedenBaseTestCase
+class ChristmasEveTest extends SwedenBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday to be tested
@@ -54,5 +56,13 @@ class ChristmasEveTest extends SwedenBaseTestCase
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
             [self::LOCALE => 'julafton']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

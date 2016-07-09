@@ -10,15 +10,17 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Norway;
+namespace Yasumi\tests\Norway;
 
 use DateTime;
 use DateTimeZone;
+use Yasumi\tests\YasumiTestCaseInterface;
+use Yasumi\Holiday;
 
 /**
  * Class for testing Pentecost Monday in Norway.
  */
-class PentecostTest extends NorwayBaseTestCase
+class PentecostTest extends NorwayBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday
@@ -41,6 +43,14 @@ class PentecostTest extends NorwayBaseTestCase
     public function testTranslation()
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
-            ['nb_NO' => 'Første pinsedag']);
+            [self::LOCALE => 'Første pinsedag']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

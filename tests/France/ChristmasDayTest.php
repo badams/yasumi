@@ -10,14 +10,16 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\France;
+namespace Yasumi\tests\France;
 
 use DateTime;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
  * Class for testing Christmas in France.
  */
-class ChristmasDayTest extends FranceBaseTestCase
+class ChristmasDayTest extends FranceBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday
@@ -53,6 +55,14 @@ class ChristmasDayTest extends FranceBaseTestCase
     public function testTranslation()
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
-            ['fr_FR' => 'Noël']);
+            [self::LOCALE => 'Noël']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

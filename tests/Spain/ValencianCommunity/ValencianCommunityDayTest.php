@@ -10,15 +10,17 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Spain\ValencianCommunity;
+namespace Yasumi\tests\Spain\ValencianCommunity;
 
 use DateTime;
 use DateTimeZone;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
  * Class for testing the Valencian Community Day in the Valencian Community (Spain).
  */
-class ValencianCommunityDayTest extends ValencianCommunityBaseTestCase
+class ValencianCommunityDayTest extends ValencianCommunityBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday to be tested
@@ -55,6 +57,15 @@ class ValencianCommunityDayTest extends ValencianCommunityBaseTestCase
     public function testTranslation()
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY,
-            $this->generateRandomYear(self::ESTABLISHMENT_YEAR), ['es_ES' => 'Día de la Comunidad Valenciana']);
+            $this->generateRandomYear(self::ESTABLISHMENT_YEAR), [self::LOCALE => 'Día de la Comunidad Valenciana']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(self::ESTABLISHMENT_YEAR),
+            Holiday::TYPE_NATIONAL);
     }
 }

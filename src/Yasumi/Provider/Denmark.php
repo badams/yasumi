@@ -8,8 +8,9 @@
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
- *  @author Sacha Telgenhof <stelgenhof@gmail.com>
+ * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
+
 namespace Yasumi\Provider;
 
 use DateTime;
@@ -22,6 +23,12 @@ use Yasumi\Holiday;
 class Denmark extends AbstractProvider
 {
     use CommonHolidays, ChristianHolidays;
+
+    /**
+     * Code to identify this Holiday Provider. Typically this is the ISO3166 code corresponding to the respective
+     * country or subregion.
+     */
+    const ID = 'DK';
 
     /**
      * Initialize holidays for Denmark.
@@ -53,9 +60,9 @@ class Denmark extends AbstractProvider
      *
      * Store Bededag, translated literally as Great Prayer Day or more loosely as General Prayer Day, "All Prayers" Day,
      * Great Day of Prayers or Common Prayer Day, is a Danish holiday celebrated on the 4th Friday after Easter. It is a
-     *  collection of minor Christian holy days consolidated into one day. The day was introduced in the Church of
+     * collection of minor Christian holy days consolidated into one day. The day was introduced in the Church of
      * Denmark in 1686 by King Christian V as a consolidation of several minor (or local) Roman Catholic holidays which
-     *  the Church observed that had survived the Reformation.
+     * the Church observed that had survived the Reformation.
      *
      * @link https://en.wikipedia.org/wiki/Store_Bededag
      */

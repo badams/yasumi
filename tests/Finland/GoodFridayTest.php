@@ -10,15 +10,17 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Finland;
+namespace Yasumi\tests\Finland;
 
 use DateTime;
 use DateTimeZone;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
  * Class containing tests for Good Friday in Finland.
  */
-class goodFridayTest extends FinlandBaseTestCase
+class GoodFridayTest extends FinlandBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday to be tested
@@ -42,5 +44,13 @@ class goodFridayTest extends FinlandBaseTestCase
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
             [self::LOCALE => 'Pitkäperjantai']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }

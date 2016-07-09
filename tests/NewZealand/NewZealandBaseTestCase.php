@@ -10,10 +10,10 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\NewZealand;
+namespace Yasumi\tests\NewZealand;
 
 use PHPUnit_Framework_TestCase;
-use Yasumi\Tests\YasumiBase;
+use Yasumi\tests\YasumiBase;
 
 /**
  * Base class for test cases of the NewZealand holiday provider.
@@ -31,4 +31,9 @@ abstract class NewZealandBaseTestCase extends PHPUnit_Framework_TestCase
      * Timezone in which this provider has holidays defined
      */
     const TIMEZONE = 'Pacific/Auckland';
+
+    /**
+     * Locale that is considered common for this provider
+     */
+    const LOCALE = 'en_NZ';
 }

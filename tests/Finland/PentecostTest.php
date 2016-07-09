@@ -10,15 +10,17 @@
  *  @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\Finland;
+namespace Yasumi\tests\Finland;
 
 use DateTime;
 use DateTimeZone;
+use Yasumi\Holiday;
+use Yasumi\tests\YasumiTestCaseInterface;
 
 /**
  * Class for testing Pentecost Monday in Finland.
  */
-class PentecostTest extends FinlandBaseTestCase
+class PentecostTest extends FinlandBaseTestCase implements YasumiTestCaseInterface
 {
     /**
      * The name of the holiday
@@ -42,5 +44,13 @@ class PentecostTest extends FinlandBaseTestCase
     {
         $this->assertTranslatedHolidayName(self::REGION, self::HOLIDAY, $this->generateRandomYear(),
             [self::LOCALE => 'Helluntaipäivä']);
+    }
+
+    /**
+     * Tests type of the holiday defined in this test.
+     */
+    public function testHolidayType()
+    {
+        $this->assertHolidayType(self::REGION, self::HOLIDAY, $this->generateRandomYear(), Holiday::TYPE_NATIONAL);
     }
 }
