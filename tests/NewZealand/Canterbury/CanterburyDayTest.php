@@ -10,7 +10,7 @@
  * @author Sacha Telgenhof <stelgenhof@gmail.com>
  */
 
-namespace Yasumi\Tests\NewZealand\Canterbury;
+namespace Yasumi\tests\NewZealand\Canterbury;
 
 use DateTime;
 use DateTimeZone;

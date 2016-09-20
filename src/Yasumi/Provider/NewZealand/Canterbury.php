@@ -13,7 +13,6 @@ namespace Yasumi\Provider\NewZealand;
 
 use DateTime;
 use DateTimeZone;
-use DateInterval;
 use Yasumi\Holiday;
 use Yasumi\Provider\NewZealand;
 
@@ -56,6 +55,5 @@ class Canterbury extends NewZealand
             $date->add(new \DateInterval('P10D'));
             $this->addHoliday(new Holiday($name, $translation, $date));
         }
-
     }
 }

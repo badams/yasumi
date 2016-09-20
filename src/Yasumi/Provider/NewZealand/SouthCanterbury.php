@@ -50,6 +50,5 @@ class SouthCanterbury extends NewZealand
 
             $this->addHoliday(new Holiday($name, $translation, $date));
         }
-
     }
 }
